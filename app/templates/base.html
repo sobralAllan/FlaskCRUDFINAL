@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='estilo.css')}}">
+</head>
+<body>
+    <nav>
+        <a href="/index">Página Inicial</a> |
+        <a href="/contato">Contato</a>
+    </nav>
+
+    <h1>{{titulo}}</h1>
+
+    {% block conteudo %}
+    {% endblock %}
+
+    <h6>Desenvolvido por ...</h6>
+</body>
+</html>
