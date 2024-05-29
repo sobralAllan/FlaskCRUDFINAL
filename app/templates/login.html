@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+  <form action="/logar" method="POST">
+    <label>CPF: </label>
+    <input type="text" name="cpf"><br><br>
+
+    <label>Senha</label>: </label>
+    <input type="password" name="senha"><br><br>
+
+    <button type="submit">Consultar</button>
+  </form>
+{% endblock %}

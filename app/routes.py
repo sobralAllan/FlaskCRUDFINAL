@@ -21,10 +21,11 @@ def cadastrar():
 def cadastrarUsuario():
     try:
         cpf      = request.form.get("cpf")
+        senha    = request.form.get("senha")
         nome     = request.form.get("nome")
         telefone = request.form.get("telefone")
         endereco = request.form.get("endereco")
-        dados    = {"cpf":cpf,"nome":nome,"telefone":telefone,"endereco":endereco}
+        dados    = {"cpf":cpf, "senha":senha, "nome":nome,"telefone":telefone,"endereco":endereco}
         requisicao = requests.post(f'{link}/cadastrar/.json', data=json.dumps(dados))
         return 'Cadastrado com sucesso!'
     except Exception as e:
@@ -47,9 +48,30 @@ def listarIndividual():
         idCadastro = ""
         for codigo in dicionario:
             usuario = dicionario[codigo]['cpf']
-            if usuario == "1231":
+            if usuario == '1234':
                 idCadastro = codigo
         return idCadastro
+    except Exception as e:
+        return f'Algo deu errado!\n\n + {e}'
+
+@app.route('/login')
+def login():
+    return render_template('login.html', titulo='Login')
+@app.route('/logar', methods=['POST'])
+def logar():
+    try:
+        cpf = request.form.get("cpf")
+        senha = request.form.get("senha")
+        requisicao = requests.get(f'{link}/cadastrar/.json')
+        dicionario = requisicao.json()
+        idCadastro = ""
+        for codigo in dicionario:
+            usuario = dicionario[codigo]['cpf']
+            sen     = dicionario[codigo]['senha']
+            if (usuario == cpf and sen == senha):
+                idCadastro = codigo
+                return idCadastro
+        return "Usuário e/ou senha inválidos!"
     except Exception as e:
         return f'Algo deu errado!\n\n + {e}'
 
